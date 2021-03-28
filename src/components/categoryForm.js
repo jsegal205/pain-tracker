@@ -40,7 +40,7 @@ const CategoryForm = ({ name, symptoms, resetForm }) => {
         className="symptom-submit"
         onClick={() => {
           axios
-            .post("http://localhost:3030/pain-items", form)
+            .post("/pain-items", form)
             .then(() => {
               resetForm();
             })

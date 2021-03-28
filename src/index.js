@@ -8,7 +8,7 @@ import "./index.scss";
 import { get } from "./utils/axios";
 
 const Main = () => {
-  const { loading, data } = get("http://localhost:3030/pain-items");
+  const { loading, data } = get("/pain-items");
   const [currentCategory, setCurrentCategory] = useState("");
   if (loading) {
     return <div>Loading</div>;

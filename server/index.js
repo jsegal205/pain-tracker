@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const painCategories = require("./pain-categories.json");
 const ObjectsToCsv = require("objects-to-csv");
 
@@ -12,6 +13,8 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   next();
 });
+
+app.use(express.static(path.join(__dirname, "../build")));
 
 app.get("/pain-items", function (req, res) {
   res.json(painCategories);
@@ -39,4 +42,14 @@ app.post("/pain-items", (req, res) => {
   res.status(200).send();
 });
 
-app.listen(3030);
+// The "catchall" handler: for any request that doesn't
+// match one above, send back React's index.html file.
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "../build/index.html"));
+});
+
+// hardcode due to react proxy
+const port = 3030;
+app.listen(port);
+
+console.log(`Pain Tracker App listening on ${port}`);
