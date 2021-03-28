@@ -24,7 +24,7 @@ app.post("/pain-items", (req, res) => {
       {
         name,
         symptoms: selectedSymptoms,
-        optionalNotes,
+        notes: !!optionalNotes ? optionalNotes.replace(/[\r\n]+/g, ". ") : null,
         time: new Date().toISOString(),
       },
     ]);
