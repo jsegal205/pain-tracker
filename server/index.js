@@ -19,13 +19,19 @@ app.get("/pain-items", function (req, res) {
 
 app.post("/pain-items", (req, res) => {
   const { name, selectedSymptoms, optionalNotes } = req.body;
+
+  const tzoffset = new Date().getTimezoneOffset() * 60000; //offset in milliseconds
+  const localISOTime = new Date(Date.now() - tzoffset)
+    .toISOString()
+    .slice(0, -1);
+
   (async () => {
     const csv = new ObjectsToCsv([
       {
         name,
         symptoms: selectedSymptoms,
         notes: !!optionalNotes ? optionalNotes.replace(/[\r\n]+/g, ". ") : null,
-        time: new Date().toISOString(),
+        time: localISOTime,
       },
     ]);
     await csv.toDisk("./out.csv", { append: true });
