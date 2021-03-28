@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const CategoryForm = ({ name, symptoms, handleSubmit }) => {
+const CategoryForm = ({ name, symptoms, resetForm }) => {
   const [form, setForm] = useState({ name, selectedSymptoms: [] });
   return (
     <section className="category-form">
@@ -42,7 +42,7 @@ const CategoryForm = ({ name, symptoms, handleSubmit }) => {
           axios
             .post("http://localhost:3030/pain-items", form)
             .then(() => {
-              handleSubmit();
+              resetForm();
             })
             .catch((error) => {
               console.error("There was an error!", error);
@@ -50,6 +50,14 @@ const CategoryForm = ({ name, symptoms, handleSubmit }) => {
         }}
       >
         Submit
+      </button>
+      <button
+        className="symptom-reset"
+        onClick={() => {
+          resetForm();
+        }}
+      >
+        Reset
       </button>
     </section>
   );

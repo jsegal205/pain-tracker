@@ -28,7 +28,7 @@ const Main = () => {
             data.find((category) => category["name"] === currentCategory)
               .symptoms
           }
-          handleSubmit={() => setCurrentCategory("")}
+          resetForm={() => setCurrentCategory("")}
         />
       ) : (
         <section className="category-items">
