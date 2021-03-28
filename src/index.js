@@ -9,6 +9,7 @@ import { get } from "./utils/axios";
 
 const Main = () => {
   const { loading, data } = get("http://localhost:3030/pain-items");
+  const [currentCategory, setCurrentCategory] = useState("");
   if (loading) {
     return <div>Loading</div>;
   }
@@ -17,8 +18,6 @@ const Main = () => {
     return <div>{data.error}</div>;
   }
 
-  debugger;
-  const [currentCategory, setCurrentCategory] = useState("");
   return (
     <main>
       <Header title={currentCategory || "Pain Tracker"} />
@@ -33,15 +32,16 @@ const Main = () => {
         />
       ) : (
         <section className="category-items">
-          {data.map((category, idx) => (
-            <CategoryItem
-              key={`${category.name}-${idx}`}
-              name={category.name}
-              handleCategoryClick={() => {
-                setCurrentCategory(category.name);
-              }}
-            />
-          ))}
+          {data.length &&
+            data.map((category, idx) => (
+              <CategoryItem
+                key={`${category.name}-${idx}`}
+                name={category.name}
+                handleCategoryClick={() => {
+                  setCurrentCategory(category.name);
+                }}
+              />
+            ))}
         </section>
       )}
     </main>
