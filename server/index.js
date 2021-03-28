@@ -12,7 +12,16 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "http://localhost:3000");
   next();
 });
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+        "script-src": ["'self'", "'unsafe-inline'"],
+      },
+    },
+  })
+);
 app.use(express.static(path.join(__dirname, "../build")));
 
 // routes
