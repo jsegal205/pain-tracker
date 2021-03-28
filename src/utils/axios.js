@@ -21,23 +21,3 @@ export const get = (url, initialValue) => {
   }, [url]);
   return { loading, data };
 };
-
-export const post = (url, body) => {
-  const [data, setData] = useState({});
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.post(url, body);
-        setData(response.data);
-      } catch ({ message, response }) {
-        setData({ error: message, status: response ? response.status : "500" });
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, [url]);
-  return { loading, data };
-};

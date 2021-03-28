@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 const CategoryForm = ({ name, symptoms, handleSubmit }) => {
   const [form, setForm] = useState({ name, selectedSymptoms: [] });
@@ -38,8 +39,14 @@ const CategoryForm = ({ name, symptoms, handleSubmit }) => {
       <button
         className="symptom-submit"
         onClick={() => {
-          console.log("did it");
-          handleSubmit();
+          axios
+            .post("http://localhost:3030/pain-items", form)
+            .then(() => {
+              handleSubmit();
+            })
+            .catch((error) => {
+              console.error("There was an error!", error);
+            });
         }}
       >
         Submit
