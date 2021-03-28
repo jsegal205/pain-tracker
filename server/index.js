@@ -1,4 +1,6 @@
 const express = require("express");
+const painCategories = require("./pain-categories.json");
+
 const app = express();
 
 app.use(express.json());
@@ -14,61 +16,7 @@ app.use((req, res, next) => {
 });
 
 app.get("/pain-items", function (req, res) {
-  res.json([
-    {
-      name: "Eyes",
-      symptoms: [
-        "Aura",
-        "Shooting stars",
-        "Grey curtain",
-        "Double vision",
-        "Strain",
-      ],
-    },
-    {
-      name: "Back",
-      symptoms: [
-        "Lower",
-        "Upper",
-        "Mid",
-        "Shoulder blades",
-        "Butt",
-        "Nerve Pain",
-        "Numb",
-      ],
-    },
-    {
-      name: "Digestive",
-      symptoms: [
-        "Acid",
-        "Nausea ",
-        "Bloating",
-        "Cramps",
-        "Constipation",
-        "Diarrhea",
-        "Gas",
-      ],
-    },
-    {
-      name: "Neck",
-      symptoms: [],
-    },
-    {
-      name: "TMJ",
-      symptoms: [
-        "Left",
-        "Right",
-        "Both",
-        "Muscle Fatigue",
-        "Neck Pain",
-        "Numb",
-      ],
-    },
-    {
-      name: "Light headed",
-      symptoms: [],
-    },
-  ]);
+  res.json(painCategories);
 });
 
 app.post("/pain-items", (req, res) => {});
