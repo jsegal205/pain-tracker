@@ -48,8 +48,7 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname + "../build/index.html"));
 });
 
-// hardcode due to react proxy
-const port = 3030;
+const port = process.env.PORT || 3030;
 app.listen(port);
 
 console.log(`Pain Tracker App listening on ${port}`);
