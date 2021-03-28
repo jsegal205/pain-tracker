@@ -1,0 +1,84 @@
+// :global {
+* {
+  &,
+  &:before,
+  &:after {
+    box-sizing: border-box;
+  }
+}
+
+html {
+  font-size: 16px;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+main,
+button {
+  margin: 0;
+  overflow: hidden;
+  font-family: "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 0.9rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+// }
+
+.title {
+  text-align: center;
+}
+
+.category-items,
+.symptom-list {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+.category-item,
+.symptom {
+  font-size: 25px;
+  font-weight: 600;
+  height: 125px;
+  margin: 0.75em;
+  width: 125px;
+  background-color: #0e8692;
+  border: 3px solid #0e8692;
+  color: #ffffff;
+  box-shadow: 12px 12px 2px 1px purple;
+}
+
+.symptom {
+  font-size: 20px;
+  height: 100px;
+  width: 100px;
+}
+
+.symptom.selected {
+  border: 6px solid #efb422;
+}
+
+.optional-notes {
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 1em 0;
+
+  textarea {
+    font-size: 20px;
+    height: 100px;
+    font-family: inherit;
+  }
+}
+
+.symptom-submit {
+  font-size: 20px;
+  font-weight: 600;
+  padding: 1em 0;
+  width: 100%;
+}

@@ -1,0 +1,36 @@
+{
+  "name": "pain-tracker",
+  "version": "1.0.0",
+  "description": "Application to track pain",
+  "scripts": {
+    "start": "nodemon ./server/index.js -w index.js & react-scripts start",
+    "client": "react-scripts start",
+    "server": "DEBUG=socket.io* nodemon ./server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "node-sass": "^5.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7",
+    "prettier": "^2.2.1"
+  },
+  "author": "Jim Segal",
+  "license": "MIT",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
