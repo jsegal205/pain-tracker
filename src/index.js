@@ -5,57 +5,19 @@ import CategoryItem from "./components/categoryItem";
 import Header from "./components/header";
 
 import "./index.scss";
-
-const data = [
-  {
-    name: "Eyes",
-    symptoms: [
-      "Aura",
-      "Shooting stars",
-      "Grey curtain",
-      "Double vision",
-      "Strain",
-    ],
-  },
-  {
-    name: "Back",
-    symptoms: [
-      "Lower",
-      "Upper",
-      "Mid",
-      "Shoulder blades",
-      "Butt",
-      "Nerve Pain",
-      "Numb",
-    ],
-  },
-  {
-    name: "Digestive",
-    symptoms: [
-      "Acid",
-      "Nausea ",
-      "Bloating",
-      "Cramps",
-      "Constipation",
-      "Diarrhea",
-      "Gas",
-    ],
-  },
-  {
-    name: "Neck",
-    symptoms: [],
-  },
-  {
-    name: "TMJ",
-    symptoms: ["Left", "Right", "Both", "Muscle Fatigue", "Neck Pain", "Numb"],
-  },
-  {
-    name: "Light headed",
-    symptoms: [],
-  },
-];
+import { get } from "./utils/axios";
 
 const Main = () => {
+  const { loading, data } = get("http://localhost:3030/pain-items");
+  if (loading) {
+    return <div>Loading</div>;
+  }
+
+  if (data.error) {
+    return <div>{data.error}</div>;
+  }
+
+  debugger;
   const [currentCategory, setCurrentCategory] = useState("");
   return (
     <main>

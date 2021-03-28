@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 const CategoryForm = ({ name, symptoms, handleSubmit }) => {
+  debugger;
   const [form, setForm] = useState({ name, selectedSymptoms: [] });
   return (
     <section className="category-form">
