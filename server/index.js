@@ -1,7 +1,9 @@
+require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const painCategories = require("./pain-categories.json");
-const ObjectsToCsv = require("objects-to-csv");
+
+const { GoogleSpreadsheet } = require("google-spreadsheet");
 
 const app = express();
 
@@ -29,16 +31,28 @@ app.post("/pain-items", (req, res) => {
     .slice(0, -1);
 
   (async () => {
-    const csv = new ObjectsToCsv([
-      {
+    try {
+      // Initialize the sheet - doc ID is the long id in the sheets URL
+      const doc = new GoogleSpreadsheet(process.env.GOOGLE_SHEET_ID);
+      await doc.useServiceAccountAuth({
+        client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+        private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n"),
+      });
+
+      await doc.loadInfo(); // loads document properties and worksheets
+
+      const sheet = doc.sheetsByIndex[0]; // or use doc.sheetsById[id] or doc.sheetsByTitle[title]
+      await sheet.addRow({
         name,
-        symptoms: selectedSymptoms,
-        notes: !!optionalNotes ? optionalNotes.replace(/[\r\n]+/g, ". ") : null,
+        symptoms: selectedSymptoms.join(", "),
+        notes: !!optionalNotes ? optionalNotes.replace(/[\r\n]+/g, ". ") : "",
         time: localISOTime,
-      },
-    ]);
-    await csv.toDisk("./out.csv", { append: true });
+      });
+    } catch (e) {
+      console.log(e);
+    }
   })();
+
   res.status(200).send();
 });
 
