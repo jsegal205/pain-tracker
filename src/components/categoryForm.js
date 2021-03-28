@@ -3,12 +3,15 @@ import axios from "axios";
 
 const CategoryForm = ({ name, symptoms, resetForm }) => {
   const [form, setForm] = useState({ name, selectedSymptoms: [] });
+  const [submitting, setSubmitting] = useState(false);
+
   return (
     <section className="category-form">
       <article className="symptom-list">
         {symptoms.map((symptom, idx) => (
           <button
             key={`${symptom}-${idx}`}
+            disabled={submitting}
             className={`symptom${
               form.selectedSymptoms.includes(symptom) ? " selected" : ""
             }`}
@@ -31,6 +34,7 @@ const CategoryForm = ({ name, symptoms, resetForm }) => {
         <label htmlFor="optional-notes">Optional Notes:</label>
         <textarea
           name="optional-notes"
+          disabled={submitting}
           onChange={(e) => {
             setForm({ ...form, optionalNotes: e.target.value });
           }}
@@ -38,10 +42,13 @@ const CategoryForm = ({ name, symptoms, resetForm }) => {
       </section>
       <button
         className="symptom-submit"
+        disabled={submitting}
         onClick={() => {
+          setSubmitting(true);
           axios
             .post("/pain-items", form)
             .then(() => {
+              setSubmitting(false);
               resetForm();
             })
             .catch((error) => {
@@ -49,7 +56,7 @@ const CategoryForm = ({ name, symptoms, resetForm }) => {
             });
         }}
       >
-        Submit
+        {submitting ? "Saving ..." : "Save"}
       </button>
       <button
         className="symptom-reset"
