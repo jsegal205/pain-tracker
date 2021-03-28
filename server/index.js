@@ -1,22 +1,21 @@
 require("dotenv").config();
 const express = require("express");
 const path = require("path");
-
+const helmet = require("helmet");
 const { GoogleSpreadsheet } = require("google-spreadsheet");
 
 const app = express();
 
+// middlewares
 app.use(express.json());
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-  res.header("Access-Control-Allow-Headers", "Content-Type");
-  res.header("Access-Control-Allow-Credentials", "true");
-  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   next();
 });
-
+app.use(helmet());
 app.use(express.static(path.join(__dirname, "../build")));
 
+// routes
 app.get("/pain-items", async (req, res) => {
   try {
     const doc = new GoogleSpreadsheet(process.env.GOOGLE_SHEET_ID);
@@ -81,6 +80,7 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname + "../build/index.html"));
 });
 
+// start the server
 const port = process.env.PORT || 3030;
 app.listen(port);
 
