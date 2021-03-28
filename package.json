@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Application to track pain",
   "scripts": {
-    "start": "yarn server",
+    "start": "node ./server/index.js",
     "dev": "yarn server & yarn client",
     "client": "react-scripts start",
     "server": "nodemon ./server/index.js",
