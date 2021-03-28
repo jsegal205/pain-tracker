@@ -51,15 +51,18 @@ button {
 }
 
 .symptom {
-  font-size: 20px;
+  font-size: 18px;
   height: 100px;
   width: 100px;
+  word-break: break-word;
+
   &-submit {
     font-size: 20px;
     font-weight: 600;
     padding: 1em 0;
     width: 100%;
   }
+
   &-reset {
     color: #f08080;
     background-color: inherit;
